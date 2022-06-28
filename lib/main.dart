@@ -47,36 +47,49 @@ class _HomeScreenState extends State<HomeScreen> {
         child: Column(
           children: [
             _searchBar(context),
-            Expanded(
-              child: ListView.separated(
-                itemCount: model == null ? 0 : model!.list!.length,
-                itemBuilder: (BuildContext context, int index) {
-                  log(model!.list!.length.toString());
-                  List<ListData> ld = model!.list!;
-                  return Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                    children: [
-                      SizedBox(
-                          width: MediaQuery.of(context).size.width * 0.20,
-                          child: Text(ld[index].word ?? "")),
-                      SizedBox(
-                        width: MediaQuery.of(context).size.width * 0.70,
-                        child: Text(
-                          ld[index].definition ?? "",
-                        ),
-                      )
-                    ],
-                  );
-                },
-                separatorBuilder: (BuildContext context, int index) {
-                  return const SizedBox(
-                    height: 10,
-                  );
-                },
-              ),
-            ),
+            _resultContents(),
           ],
         ),
+      ),
+    );
+  }
+
+  Expanded _resultContents() {
+    return Expanded(
+      child: ListView.separated(
+        itemCount: model == null ? 0 : model!.list!.length,
+        itemBuilder: (BuildContext context, int index) {
+          log(model!.list!.length.toString());
+          List<ListData> ld = model!.list!;
+          return Row(
+            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            children: [
+              SizedBox(
+                  width: MediaQuery.of(context).size.width * 0.20,
+                  child: Text(
+                    ld[index].word ?? "",
+                    style: const TextStyle(
+                      color: Colors.black,
+                      fontWeight: FontWeight.bold,
+                    ),
+                  )),
+              SizedBox(
+                width: MediaQuery.of(context).size.width * 0.70,
+                child: Text(
+                  ld[index].definition ?? "",
+                  style: TextStyle(
+                    color: index % 2 == 0 ? Colors.purple : Colors.blue,
+                  ),
+                ),
+              )
+            ],
+          );
+        },
+        separatorBuilder: (BuildContext context, int index) {
+          return const SizedBox(
+            height: 10,
+          );
+        },
       ),
     );
   }
