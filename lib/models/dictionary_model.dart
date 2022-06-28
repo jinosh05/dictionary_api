@@ -1,123 +1,86 @@
 class DictionaryModel {
-  String? word;
-  List<Results>? results;
-  Syllables? syllables;
-  Pronunciation? pronunciation;
-  double? frequency;
+  List<ListData>? list;
 
-  DictionaryModel(
-      {this.word,
-      this.results,
-      this.syllables,
-      this.pronunciation,
-      this.frequency});
+  DictionaryModel({this.list});
 
   DictionaryModel.fromJson(Map<String, dynamic> json) {
-    word = json['word'];
-    if (json['results'] != null) {
-      results = <Results>[];
-      json['results'].forEach((v) {
-        results!.add(Results.fromJson(v));
+    if (json['list'] != null) {
+      list = <ListData>[];
+      json['list'].forEach((v) {
+        list!.add(ListData.fromJson(v));
       });
     }
-    syllables = json['syllables'] != null
-        ? Syllables.fromJson(json['syllables'])
-        : null;
-    pronunciation = json['pronunciation'] != null
-        ? Pronunciation.fromJson(json['pronunciation'])
-        : null;
-    frequency = json['frequency'];
   }
 
   Map<String, dynamic> toJson() {
     final Map<String, dynamic> data = <String, dynamic>{};
-    data['word'] = word;
-    if (results != null) {
-      data['results'] = results!.map((v) => v.toJson()).toList();
+    if (list != null) {
+      data['list'] = list!.map((v) => v.toJson()).toList();
     }
-    if (syllables != null) {
-      data['syllables'] = syllables!.toJson();
-    }
-    if (pronunciation != null) {
-      data['pronunciation'] = pronunciation!.toJson();
-    }
-    data['frequency'] = frequency;
     return data;
   }
 }
 
-class Results {
+class ListData {
   String? definition;
-  String? partOfSpeech;
-  List<String>? synonyms;
-  List<String>? typeOf;
-  List<String>? hasTypes;
-  List<String>? derivation;
-  List<String>? examples;
+  String? permalink;
+  int? thumbsUp;
+  List<dynamic>? soundUrls;
+  String? author;
+  String? word;
+  int? defid;
+  String? currentVote;
+  String? writtenOn;
+  String? example;
+  int? thumbsDown;
 
-  Results(
+  ListData(
       {this.definition,
-      this.partOfSpeech,
-      this.synonyms,
-      this.typeOf,
-      this.hasTypes,
-      this.derivation,
-      this.examples});
+      this.permalink,
+      this.thumbsUp,
+      this.soundUrls,
+      this.author,
+      this.word,
+      this.defid,
+      this.currentVote,
+      this.writtenOn,
+      this.example,
+      this.thumbsDown});
 
-  Results.fromJson(Map<String, dynamic> json) {
+  ListData.fromJson(Map<String, dynamic> json) {
     definition = json['definition'];
-    partOfSpeech = json['partOfSpeech'];
-    synonyms = json['synonyms'].cast<String>();
-    typeOf = json['typeOf'].cast<String>();
-    hasTypes = json['hasTypes'].cast<String>();
-    derivation = json['derivation'].cast<String>();
-    examples = json['examples'].cast<String>();
+    permalink = json['permalink'];
+    thumbsUp = json['thumbs_up'];
+    if (json['sound_urls'] != null) {
+      soundUrls = <Null>[];
+      json['sound_urls'].forEach((v) {
+        soundUrls!.add(ListData.fromJson(v));
+      });
+    }
+    author = json['author'];
+    word = json['word'];
+    defid = json['defid'];
+    currentVote = json['current_vote'];
+    writtenOn = json['written_on'];
+    example = json['example'];
+    thumbsDown = json['thumbs_down'];
   }
 
   Map<String, dynamic> toJson() {
     final Map<String, dynamic> data = <String, dynamic>{};
     data['definition'] = definition;
-    data['partOfSpeech'] = partOfSpeech;
-    data['synonyms'] = synonyms;
-    data['typeOf'] = typeOf;
-    data['hasTypes'] = hasTypes;
-    data['derivation'] = derivation;
-    data['examples'] = examples;
-    return data;
-  }
-}
-
-class Syllables {
-  int? count;
-  List<String>? list;
-
-  Syllables({this.count, this.list});
-
-  Syllables.fromJson(Map<String, dynamic> json) {
-    count = json['count'];
-    list = json['list'].cast<String>();
-  }
-
-  Map<String, dynamic> toJson() {
-    final Map<String, dynamic> data = <String, dynamic>{};
-    data['count'] = count;
-    data['list'] = list;
-    return data;
-  }
-}
-
-class Pronunciation {
-  String? all;
-
-  Pronunciation({this.all});
-
-  Pronunciation.fromJson(Map<String, dynamic> json) {
-    all = json['all'];
-  }
-
-  Map<String, dynamic> toJson() {
-    final Map<String, dynamic> data = <String, dynamic>{};
-    data['all'] = all;
+    data['permalink'] = permalink;
+    data['thumbs_up'] = thumbsUp;
+    if (soundUrls != null) {
+      data['sound_urls'] = soundUrls!.map((v) => v.toJson()).toList();
+    }
+    data['author'] = author;
+    data['word'] = word;
+    data['defid'] = defid;
+    data['current_vote'] = currentVote;
+    data['written_on'] = writtenOn;
+    data['example'] = example;
+    data['thumbs_down'] = thumbsDown;
     return data;
   }
 }
