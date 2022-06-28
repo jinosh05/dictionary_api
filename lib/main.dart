@@ -48,13 +48,29 @@ class _HomeScreenState extends State<HomeScreen> {
           children: [
             _searchBar(context),
             Expanded(
-              child: ListView.builder(
+              child: ListView.separated(
                 itemCount: model == null ? 0 : model!.list!.length,
                 itemBuilder: (BuildContext context, int index) {
                   log(model!.list!.length.toString());
                   List<ListData> ld = model!.list!;
                   return Row(
-                    children: [Text(ld[index].word ?? "")],
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    children: [
+                      SizedBox(
+                          width: MediaQuery.of(context).size.width * 0.20,
+                          child: Text(ld[index].word ?? "")),
+                      SizedBox(
+                        width: MediaQuery.of(context).size.width * 0.70,
+                        child: Text(
+                          ld[index].definition ?? "",
+                        ),
+                      )
+                    ],
+                  );
+                },
+                separatorBuilder: (BuildContext context, int index) {
+                  return const SizedBox(
+                    height: 10,
                   );
                 },
               ),
