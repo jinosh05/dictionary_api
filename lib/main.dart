@@ -14,13 +14,14 @@ class MyApp extends StatefulWidget {
 }
 
 class _MyAppState extends State<MyApp> {
-  late DictionaryModel model;
+  DictionaryModel? model;
 
   Future<DictionaryModel?> fetchApi(String value) async {
     Response response = await get(
         Uri.parse('https://api.urbandictionary.com/v0/define?term=$value'));
 
     try {
+      debugPrint(response.body);
       return model = DictionaryModel.fromJson(jsonDecode(response.body));
     } catch (e) {
       return null;
@@ -30,7 +31,7 @@ class _MyAppState extends State<MyApp> {
   void autoCompleteSearch(String value) async {
     var result = await fetchApi(value);
     setState(() {
-      model = result!;
+      model = result;
     });
   }
 
@@ -44,8 +45,16 @@ class _MyAppState extends State<MyApp> {
         body: Center(
           child: Column(
             mainAxisAlignment: MainAxisAlignment.spaceAround,
-            children: const [
-              TextField(),
+            children: [
+              TextField(
+                onChanged: ((value) {
+                  if (value.isNotEmpty) {
+                    autoCompleteSearch(value);
+                  } else {
+                    model = null;
+                  }
+                }),
+              ),
             ],
           ),
         ),
