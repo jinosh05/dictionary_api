@@ -4,16 +4,16 @@ import 'package:dictionary_api/models/dictionary_model.dart';
 import 'package:flutter/material.dart';
 import 'package:http/http.dart';
 
-void main() => runApp(const MyApp());
+void main() => runApp(const MaterialApp(home: HomeScreen()));
 
-class MyApp extends StatefulWidget {
-  const MyApp({Key? key}) : super(key: key);
+class HomeScreen extends StatefulWidget {
+  const HomeScreen({Key? key}) : super(key: key);
 
   @override
-  State<MyApp> createState() => _MyAppState();
+  State<HomeScreen> createState() => _HomeScreenState();
 }
 
-class _MyAppState extends State<MyApp> {
+class _HomeScreenState extends State<HomeScreen> {
   DictionaryModel? model;
 
   Future<DictionaryModel?> fetchApi(String value) async {
@@ -37,27 +37,35 @@ class _MyAppState extends State<MyApp> {
 
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(
-      home: Scaffold(
-        appBar: AppBar(
-          title: const Text('Dictionary API'),
+    return Scaffold(
+      appBar: AppBar(
+        title: const Text('Dictionary API'),
+      ),
+      body: Center(
+        child: Column(
+          children: [
+            _searchBar(context),
+          ],
         ),
-        body: Center(
-          child: Column(
-            mainAxisAlignment: MainAxisAlignment.spaceAround,
-            children: [
-              TextField(
-                onChanged: ((value) {
-                  if (value.isNotEmpty) {
-                    autoCompleteSearch(value);
-                  } else {
-                    model = null;
-                  }
-                }),
-              ),
-            ],
-          ),
+      ),
+    );
+  }
+
+  Container _searchBar(BuildContext context) {
+    return Container(
+      margin: const EdgeInsets.symmetric(vertical: 10),
+      width: MediaQuery.of(context).size.width * 0.75,
+      child: TextField(
+        decoration: const InputDecoration(
+          border: OutlineInputBorder(),
         ),
+        onChanged: ((value) {
+          if (value.isNotEmpty) {
+            autoCompleteSearch(value);
+          } else {
+            model = null;
+          }
+        }),
       ),
     );
   }
