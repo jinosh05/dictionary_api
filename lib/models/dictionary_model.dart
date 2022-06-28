@@ -25,7 +25,7 @@ class ListData {
   String? definition;
   String? permalink;
   int? thumbsUp;
-  List<dynamic>? soundUrls;
+  List<String>? soundUrls;
   String? author;
   String? word;
   int? defid;
@@ -51,12 +51,7 @@ class ListData {
     definition = json['definition'];
     permalink = json['permalink'];
     thumbsUp = json['thumbs_up'];
-    if (json['sound_urls'] != null) {
-      soundUrls = <Null>[];
-      json['sound_urls'].forEach((v) {
-        soundUrls!.add(ListData.fromJson(v));
-      });
-    }
+    soundUrls = json['sound_urls'].cast<String>();
     author = json['author'];
     word = json['word'];
     defid = json['defid'];
@@ -71,9 +66,7 @@ class ListData {
     data['definition'] = definition;
     data['permalink'] = permalink;
     data['thumbs_up'] = thumbsUp;
-    if (soundUrls != null) {
-      data['sound_urls'] = soundUrls!.map((v) => v.toJson()).toList();
-    }
+    data['sound_urls'] = soundUrls;
     data['author'] = author;
     data['word'] = word;
     data['defid'] = defid;

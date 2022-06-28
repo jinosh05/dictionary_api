@@ -1,4 +1,5 @@
 import 'dart:convert';
+import 'dart:developer';
 
 import 'package:dictionary_api/models/dictionary_model.dart';
 import 'package:flutter/material.dart';
@@ -41,10 +42,23 @@ class _HomeScreenState extends State<HomeScreen> {
       appBar: AppBar(
         title: const Text('Dictionary API'),
       ),
-      body: Center(
+      body: Padding(
+        padding: const EdgeInsets.symmetric(horizontal: 15),
         child: Column(
           children: [
             _searchBar(context),
+            Expanded(
+              child: ListView.builder(
+                itemCount: model == null ? 0 : model!.list!.length,
+                itemBuilder: (BuildContext context, int index) {
+                  log(model!.list!.length.toString());
+                  List<ListData> ld = model!.list!;
+                  return Row(
+                    children: [Text(ld[index].word ?? "")],
+                  );
+                },
+              ),
+            ),
           ],
         ),
       ),
