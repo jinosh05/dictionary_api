@@ -1,5 +1,4 @@
 import 'dart:convert';
-import 'dart:developer';
 
 import 'package:dictionary_api/models/dictionary_model.dart';
 import 'package:flutter/material.dart';
@@ -47,14 +46,11 @@ class _HomeScreenState extends State<HomeScreen> {
       appBar: AppBar(
         title: const Text('Dictionary API'),
       ),
-      body: Padding(
-        padding: const EdgeInsets.symmetric(horizontal: 15),
-        child: Column(
-          children: [
-            _searchBar(context),
-            _resultContents(),
-          ],
-        ),
+      body: Column(
+        children: [
+          _searchBar(context),
+          _resultContents(),
+        ],
       ),
     );
   }
@@ -64,30 +60,30 @@ class _HomeScreenState extends State<HomeScreen> {
       child: ListView.separated(
         itemCount: model == null ? 0 : model!.list!.length,
         itemBuilder: (BuildContext context, int index) {
-          log(model!.list!.length.toString());
           List<ListData> ld = model!.list!;
-          return Row(
-            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-            children: [
-              SizedBox(
-                  width: MediaQuery.of(context).size.width * 0.20,
+          return Container(
+            color: index.isEven ? Colors.black12 : Colors.white,
+            padding: const EdgeInsets.all(10),
+            child: Row(
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              children: [
+                SizedBox(
+                    width: MediaQuery.of(context).size.width * 0.20,
+                    child: Text(
+                      ld[index].word ?? "",
+                      style: const TextStyle(
+                        color: Colors.black,
+                        fontWeight: FontWeight.bold,
+                      ),
+                    )),
+                SizedBox(
+                  width: MediaQuery.of(context).size.width * 0.70,
                   child: Text(
-                    ld[index].word ?? "",
-                    style: const TextStyle(
-                      color: Colors.black,
-                      fontWeight: FontWeight.bold,
-                    ),
-                  )),
-              SizedBox(
-                width: MediaQuery.of(context).size.width * 0.70,
-                child: Text(
-                  ld[index].definition ?? "",
-                  style: TextStyle(
-                    color: index % 2 == 0 ? Colors.purple : Colors.blue,
+                    ld[index].definition ?? "",
                   ),
-                ),
-              )
-            ],
+                )
+              ],
+            ),
           );
         },
         separatorBuilder: (BuildContext context, int index) {
@@ -110,6 +106,7 @@ class _HomeScreenState extends State<HomeScreen> {
             suffixIcon: IconButton(
                 onPressed: () {
                   controller.clear();
+                  autoCompleteSearch(" ");
                 },
                 icon: const Icon(
                   Icons.clear,
