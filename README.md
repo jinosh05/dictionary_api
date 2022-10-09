@@ -6,7 +6,7 @@ A simple working model of dictionary API built in Flutter.
  
  ## Screenshot
 
-![](dict.gif)
+![](dictionary.gif)
 
 ## Build Instructions
 
