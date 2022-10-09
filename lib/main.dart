@@ -20,6 +20,7 @@ class HomeScreen extends StatefulWidget {
 
 class _HomeScreenState extends State<HomeScreen> {
   DictionaryModel? model;
+  final TextEditingController controller = TextEditingController();
 
   Future<DictionaryModel?> fetchApi(String value) async {
     Response response = await get(
@@ -101,14 +102,22 @@ class _HomeScreenState extends State<HomeScreen> {
   Container _searchBar(BuildContext context) {
     return Container(
       margin: const EdgeInsets.symmetric(vertical: 10),
-      width: MediaQuery.of(context).size.width * 0.75,
+      width: MediaQuery.of(context).size.width * 0.9,
       child: TextField(
-        decoration: const InputDecoration(
-          border: OutlineInputBorder(),
-        ),
+        controller: controller,
+        decoration: InputDecoration(
+            border: const OutlineInputBorder(),
+            suffixIcon: IconButton(
+                onPressed: () {
+                  controller.clear();
+                },
+                icon: const Icon(
+                  Icons.clear,
+                  size: 25,
+                ))),
         onChanged: ((value) {
           if (value.isNotEmpty) {
-            autoCompleteSearch(value);
+            autoCompleteSearch(controller.text);
           } else {
             model = null;
           }
