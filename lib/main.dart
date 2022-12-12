@@ -1,8 +1,10 @@
 import 'dart:convert';
+import 'dart:developer';
 
 import 'package:dictionary_api/models/dictionary_model.dart';
+import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
-import 'package:http/http.dart';
+
 import 'package:url_strategy/url_strategy.dart';
 
 void main() {
@@ -22,13 +24,16 @@ class _HomeScreenState extends State<HomeScreen> {
   final TextEditingController controller = TextEditingController();
 
   Future<DictionaryModel?> fetchApi(String value) async {
-    Response response = await get(
-        Uri.parse('https://api.urbandictionary.com/v0/define?term=$value'));
-
     try {
-      debugPrint(response.body);
-      return model = DictionaryModel.fromJson(jsonDecode(response.body));
+      Response response = await Dio()
+          .get('https://api.urbandictionary.com/v0/define?term=$value');
+      if (response.data is Map) {
+        log('Map');
+      }
+
+      return model = dictionaryModelFromJson(jsonEncode(response.data));
     } catch (e) {
+      log(e.toString());
       return null;
     }
   }
@@ -58,9 +63,9 @@ class _HomeScreenState extends State<HomeScreen> {
   Expanded _resultContents() {
     return Expanded(
       child: ListView.separated(
-        itemCount: model == null ? 0 : model!.list!.length,
+        itemCount: model == null ? 0 : model!.list.length,
         itemBuilder: (BuildContext context, int index) {
-          List<ListData> ld = model!.list!;
+          List<ListElement> ld = model!.list;
           return Container(
             color: index.isEven ? Colors.black12 : Colors.white,
             padding: const EdgeInsets.all(10),
@@ -70,7 +75,7 @@ class _HomeScreenState extends State<HomeScreen> {
                 SizedBox(
                     width: MediaQuery.of(context).size.width * 0.20,
                     child: Text(
-                      ld[index].word ?? "",
+                      ld[index].word,
                       style: const TextStyle(
                         color: Colors.black,
                         fontWeight: FontWeight.bold,
@@ -79,7 +84,7 @@ class _HomeScreenState extends State<HomeScreen> {
                 SizedBox(
                   width: MediaQuery.of(context).size.width * 0.70,
                   child: Text(
-                    ld[index].definition ?? "",
+                    ld[index].definition,
                   ),
                 )
               ],
@@ -113,11 +118,7 @@ class _HomeScreenState extends State<HomeScreen> {
                   size: 25,
                 ))),
         onChanged: ((value) {
-          if (value.isNotEmpty) {
-            autoCompleteSearch(controller.text);
-          } else {
-            model = null;
-          }
+          autoCompleteSearch(controller.text);
         }),
       ),
     );

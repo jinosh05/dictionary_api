@@ -1,79 +1,81 @@
+// To parse this JSON data, do
+//
+//     final dictionaryModel = dictionaryModelFromJson(jsonString);
+
+import 'dart:convert';
+
+DictionaryModel dictionaryModelFromJson(String str) =>
+    DictionaryModel.fromJson(json.decode(str));
+
+String dictionaryModelToJson(DictionaryModel data) =>
+    json.encode(data.toJson());
+
 class DictionaryModel {
-  List<ListData>? list;
+  DictionaryModel({
+    required this.list,
+  });
 
-  DictionaryModel({this.list});
+  List<ListElement> list;
 
-  DictionaryModel.fromJson(Map<String, dynamic> json) {
-    if (json['list'] != null) {
-      list = <ListData>[];
-      json['list'].forEach((v) {
-        list!.add(ListData.fromJson(v));
-      });
-    }
-  }
+  factory DictionaryModel.fromJson(Map<String, dynamic> json) =>
+      DictionaryModel(
+        list: List<ListElement>.from(
+            json["list"].map((x) => ListElement.fromJson(x))),
+      );
 
-  Map<String, dynamic> toJson() {
-    final Map<String, dynamic> data = <String, dynamic>{};
-    if (list != null) {
-      data['list'] = list!.map((v) => v.toJson()).toList();
-    }
-    return data;
-  }
+  Map<String, dynamic> toJson() => {
+        "list": List<dynamic>.from(list.map((x) => x.toJson())),
+      };
 }
 
-class ListData {
-  String? definition;
-  String? permalink;
-  int? thumbsUp;
-  List<String>? soundUrls;
-  String? author;
-  String? word;
-  int? defid;
-  String? currentVote;
-  String? writtenOn;
-  String? example;
-  int? thumbsDown;
+class ListElement {
+  ListElement({
+    required this.definition,
+    required this.permalink,
+    required this.thumbsUp,
+    required this.author,
+    required this.word,
+    required this.defid,
+    required this.currentVote,
+    required this.writtenOn,
+    required this.example,
+    required this.thumbsDown,
+  });
 
-  ListData(
-      {this.definition,
-      this.permalink,
-      this.thumbsUp,
-      this.soundUrls,
-      this.author,
-      this.word,
-      this.defid,
-      this.currentVote,
-      this.writtenOn,
-      this.example,
-      this.thumbsDown});
+  String definition;
+  String permalink;
+  int thumbsUp;
+  String author;
+  String word;
+  int defid;
+  String currentVote;
+  DateTime writtenOn;
+  String example;
+  int thumbsDown;
 
-  ListData.fromJson(Map<String, dynamic> json) {
-    definition = json['definition'];
-    permalink = json['permalink'];
-    thumbsUp = json['thumbs_up'];
-    soundUrls = json['sound_urls'].cast<String>();
-    author = json['author'];
-    word = json['word'];
-    defid = json['defid'];
-    currentVote = json['current_vote'];
-    writtenOn = json['written_on'];
-    example = json['example'];
-    thumbsDown = json['thumbs_down'];
-  }
+  factory ListElement.fromJson(Map<String, dynamic> json) => ListElement(
+        definition: json["definition"],
+        permalink: json["permalink"],
+        thumbsUp: json["thumbs_up"],
+        author: json["author"],
+        word: json["word"],
+        defid: json["defid"],
+        currentVote: json["current_vote"],
+        writtenOn: DateTime.parse(json["written_on"]),
+        example: json["example"],
+        thumbsDown: json["thumbs_down"],
+      );
 
-  Map<String, dynamic> toJson() {
-    final Map<String, dynamic> data = <String, dynamic>{};
-    data['definition'] = definition;
-    data['permalink'] = permalink;
-    data['thumbs_up'] = thumbsUp;
-    data['sound_urls'] = soundUrls;
-    data['author'] = author;
-    data['word'] = word;
-    data['defid'] = defid;
-    data['current_vote'] = currentVote;
-    data['written_on'] = writtenOn;
-    data['example'] = example;
-    data['thumbs_down'] = thumbsDown;
-    return data;
-  }
+  Map<String, dynamic> toJson() => {
+        "definition": definition,
+        "permalink": permalink,
+        "thumbs_up": thumbsUp,
+        "author": author,
+        "word": word,
+        "defid": defid,
+        "current_vote": currentVote,
+        "written_on": writtenOn.toIso8601String(),
+        "example": example,
+        "thumbs_down": thumbsDown,
+      };
 }
