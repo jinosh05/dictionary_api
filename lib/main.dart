@@ -3,10 +3,7 @@ import 'package:dictionary_api/provider/api_provider.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
-import 'package:url_strategy/url_strategy.dart';
-
 void main() {
-  setPathUrlStrategy();
   runApp(const MyApp());
 }
 
