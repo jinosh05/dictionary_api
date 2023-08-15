@@ -15,9 +15,16 @@ class DictionaryBloc extends Bloc<DictionaryEvent, DictionaryState> {
     on<DictionaryEvent>((event, emit) async {
       if (event is SearchWord) {
         emit(DictionaryLoading());
-        final response = await _service.fetchApi(event.searchKey);
-        if (response != null) {
-          emit(DictionaryLoaded(response));
+        // final response = await _fetchAPi(event);
+        var list = await Future.value([
+          await _fetchAPi(event),
+          await _getText(),
+          await _getNumber(),
+        ]);
+        var dictData = list[0] as DictionaryModel?;
+
+        if (dictData != null) {
+          emit(DictionaryLoaded(dictData));
         } else {
           emit(DictionaryEmpty());
         }
@@ -26,5 +33,18 @@ class DictionaryBloc extends Bloc<DictionaryEvent, DictionaryState> {
         emit(DictionaryEmpty());
       }
     });
+  }
+
+  Future<DictionaryModel?> _fetchAPi(SearchWord event) =>
+      _service.fetchApi(event.searchKey);
+
+  Future<String> _getText() async {
+    await Future.delayed(const Duration(seconds: 2));
+    return "working";
+  }
+
+  Future<int> _getNumber() async {
+    await Future.delayed(const Duration(seconds: 2));
+    return 3;
   }
 }
