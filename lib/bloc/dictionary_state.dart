@@ -14,4 +14,6 @@ final class DictionaryLoaded extends DictionaryState {
   const DictionaryLoaded(this.dictValue);
 }
 
+final class DictionaryLoading extends DictionaryState {}
+
 final class DictionaryEmpty extends DictionaryState {}
