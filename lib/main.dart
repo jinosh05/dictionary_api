@@ -46,21 +46,24 @@ class HomeScreen extends StatelessWidget {
                 border: const OutlineInputBorder(),
                 suffixIcon: BlocBuilder<DictionaryBloc, DictionaryState>(
                   builder: (context, state) {
-                    return state is DictionaryLoading
-                        ? const Padding(
-                            padding: EdgeInsets.all(12.0),
-                            child: CircularProgressIndicator(),
-                          )
-                        : IconButton(
-                            onPressed: () {
-                              bloc.searchCtrl.clear();
-                              bloc.add(const SearchWord(" "));
-                            },
-                            icon: const Icon(
-                              Icons.clear,
-                              size: 25,
-                            ),
-                          );
+                    if (bloc.searchCtrl.text.isEmpty) {
+                      return const SizedBox();
+                    } else {
+                      return state is DictionaryLoading
+                          ? const Padding(
+                              padding: EdgeInsets.all(12.0),
+                              child: CircularProgressIndicator(),
+                            )
+                          : IconButton(
+                              onPressed: () {
+                                bloc.add(ClearSearch());
+                              },
+                              icon: const Icon(
+                                Icons.clear,
+                                size: 25,
+                              ),
+                            );
+                    }
                   },
                 ),
               ),

@@ -11,3 +11,5 @@ class SearchWord extends DictionaryEvent {
   final String searchKey;
   const SearchWord(this.searchKey);
 }
+
+class ClearSearch extends DictionaryEvent {}

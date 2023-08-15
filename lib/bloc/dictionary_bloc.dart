@@ -21,6 +21,9 @@ class DictionaryBloc extends Bloc<DictionaryEvent, DictionaryState> {
         } else {
           emit(DictionaryEmpty());
         }
+      } else if (event is ClearSearch) {
+        searchCtrl.clear();
+        emit(DictionaryEmpty());
       }
     });
   }
