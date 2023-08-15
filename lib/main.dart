@@ -22,15 +22,8 @@ class MyApp extends StatelessWidget {
   }
 }
 
-class HomeScreen extends StatefulWidget {
+class HomeScreen extends StatelessWidget {
   const HomeScreen({Key? key}) : super(key: key);
-
-  @override
-  State<HomeScreen> createState() => _HomeScreenState();
-}
-
-class _HomeScreenState extends State<HomeScreen> {
-  final TextEditingController controller = TextEditingController();
 
   @override
   Widget build(BuildContext context) {
@@ -48,7 +41,7 @@ class _HomeScreenState extends State<HomeScreen> {
             margin: EdgeInsets.symmetric(vertical: 10, horizontal: width * 0.5),
             child: Expanded(
               child: TextField(
-                controller: controller,
+                controller: bloc.searchCtrl,
                 decoration: InputDecoration(
                   border: const OutlineInputBorder(),
                   suffixIcon: BlocBuilder<DictionaryBloc, DictionaryState>(
@@ -60,7 +53,7 @@ class _HomeScreenState extends State<HomeScreen> {
                             )
                           : IconButton(
                               onPressed: () {
-                                controller.clear();
+                                bloc.searchCtrl.clear();
                                 bloc.add(const SearchWord(" "));
                               },
                               icon: const Icon(
