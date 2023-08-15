@@ -38,36 +38,35 @@ class HomeScreen extends StatelessWidget {
       body: Column(
         children: [
           Container(
-            margin: EdgeInsets.symmetric(vertical: 10, horizontal: width * 0.5),
-            child: Expanded(
-              child: TextField(
-                controller: bloc.searchCtrl,
-                decoration: InputDecoration(
-                  border: const OutlineInputBorder(),
-                  suffixIcon: BlocBuilder<DictionaryBloc, DictionaryState>(
-                    builder: (context, state) {
-                      return state is DictionaryLoading
-                          ? const Padding(
-                              padding: EdgeInsets.all(12.0),
-                              child: CircularProgressIndicator(),
-                            )
-                          : IconButton(
-                              onPressed: () {
-                                bloc.searchCtrl.clear();
-                                bloc.add(const SearchWord(" "));
-                              },
-                              icon: const Icon(
-                                Icons.clear,
-                                size: 25,
-                              ),
-                            );
-                    },
-                  ),
+            margin:
+                EdgeInsets.symmetric(vertical: 10, horizontal: width * 0.05),
+            child: TextField(
+              controller: bloc.searchCtrl,
+              decoration: InputDecoration(
+                border: const OutlineInputBorder(),
+                suffixIcon: BlocBuilder<DictionaryBloc, DictionaryState>(
+                  builder: (context, state) {
+                    return state is DictionaryLoading
+                        ? const Padding(
+                            padding: EdgeInsets.all(12.0),
+                            child: CircularProgressIndicator(),
+                          )
+                        : IconButton(
+                            onPressed: () {
+                              bloc.searchCtrl.clear();
+                              bloc.add(const SearchWord(" "));
+                            },
+                            icon: const Icon(
+                              Icons.clear,
+                              size: 25,
+                            ),
+                          );
+                  },
                 ),
-                onChanged: ((text) {
-                  bloc.add(SearchWord(text));
-                }),
               ),
+              onChanged: ((text) {
+                bloc.add(SearchWord(text));
+              }),
             ),
           ),
           Expanded(
