@@ -22,8 +22,29 @@ linter:
   # `// ignore_for_file: name_of_lint` syntax on the line or in the file
   # producing the lint.
   rules:
-    # avoid_print: false  # Uncomment to disable the `avoid_print` rule
-    # prefer_single_quotes: true  # Uncomment to enable the `prefer_single_quotes` rule
-
-# Additional information about this file can be found at
-# https://dart.dev/guides/language/analysis-options
+    - always_declare_return_types
+    - always_put_required_named_parameters_first
+    - always_require_non_null_named_parameters
+    - always_use_package_imports
+    - annotate_overrides
+    - avoid_bool_literals_in_conditional_expressions
+    - avoid_catching_errors
+    - avoid_double_and_int_checks
+    - avoid_dynamic_calls
+    - avoid_empty_else
+    - avoid_escaping_inner_quotes
+    - avoid_field_initializers_in_const_classes
+    # We are already using the `parameter_assignments` lint.
+    # Adding final to parameters has the same effect as `parameter_assignments`
+    # so it doesn't make sense to use final parameters with `parameter_assignments`.
+    - avoid_final_parameters
+    - avoid_function_literals_in_foreach_calls
+    - avoid_implementing_value_types
+    - avoid_init_to_null
+    - avoid_multiple_declarations_per_line
+    - avoid_null_checks_in_equality_operators
+    - avoid_positional_boolean_parameters
+    - avoid_print
+    - avoid_private_typedef_functions
+    - avoid_redundant_argument_values
+    - avoid_relative_lib_imports
