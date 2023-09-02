@@ -86,7 +86,7 @@ linter:
     - depend_on_referenced_packages
     - deprecated_consistency
     - deprecated_member_use_from_same_package
-    - diagnostic_describe_all_properties
+    # - diagnostic_describe_all_properties
     - directives_ordering
     - discarded_futures
     - do_not_use_environment
@@ -102,7 +102,6 @@ linter:
     - implicit_call_tearoffs
     - implicit_reopen
     - invalid_case_patterns
-    - iterable_contains_unrelated_type
     - join_return_with_assignment
     - leading_newlines_in_multiline_strings
     - library_annotations
@@ -110,7 +109,6 @@ linter:
     - library_prefixes
     - library_private_types_in_public_api
     - lines_longer_than_80_chars
-    - list_remove_unrelated_type
     - literal_only_boolean_expressions
     - matching_super_parameters
     - missing_whitespace_between_adjacent_strings
@@ -172,7 +170,7 @@ linter:
     - prefer_typing_uninitialized_variables
     - prefer_void_to_null
     - provide_deprecation_message
-    - public_member_api_docs
+    # - public_member_api_docs
     - recursive_getters
     - require_trailing_commas
     - secure_pubspec_urls
