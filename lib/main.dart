@@ -57,34 +57,10 @@ class _HomeScreenState extends State<HomeScreen> {
   Expanded _resultContents() => Expanded(
         child: ListView.separated(
           itemCount: model == null ? 0 : model!.list!.length,
-          itemBuilder: (BuildContext context, int index) {
-            final List<ListData> ld = model!.list!;
-            return Container(
-              color: index.isEven ? Colors.black12 : Colors.white,
-              padding: const EdgeInsets.all(10),
-              child: Row(
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                children: <Widget>[
-                  SizedBox(
-                    width: MediaQuery.of(context).size.width * 0.20,
-                    child: Text(
-                      ld[index].word ?? "",
-                      style: const TextStyle(
-                        color: Colors.black,
-                        fontWeight: FontWeight.bold,
-                      ),
-                    ),
-                  ),
-                  SizedBox(
-                    width: MediaQuery.of(context).size.width * 0.70,
-                    child: Text(
-                      ld[index].definition ?? "",
-                    ),
-                  ),
-                ],
-              ),
-            );
-          },
+          itemBuilder: (BuildContext context, int index) => _DictionaryItem(
+            index: index,
+            data: model!.list![index],
+          ),
           separatorBuilder: (BuildContext context, int index) => const SizedBox(
             height: 10,
           ),
@@ -116,6 +92,39 @@ class _HomeScreenState extends State<HomeScreen> {
               model = null;
             }
           },
+        ),
+      );
+}
+
+class _DictionaryItem extends StatelessWidget {
+  const _DictionaryItem({required this.index, required this.data, super.key});
+  final int index;
+  final ListData data;
+
+  @override
+  Widget build(BuildContext context) => Container(
+        color: index.isEven ? Colors.black12 : Colors.white,
+        padding: const EdgeInsets.all(10),
+        child: Row(
+          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+          children: <Widget>[
+            SizedBox(
+              width: MediaQuery.of(context).size.width * 0.20,
+              child: Text(
+                data.word ?? "",
+                style: const TextStyle(
+                  color: Colors.black,
+                  fontWeight: FontWeight.bold,
+                ),
+              ),
+            ),
+            SizedBox(
+              width: MediaQuery.of(context).size.width * 0.70,
+              child: Text(
+                data.definition ?? "",
+              ),
+            ),
+          ],
         ),
       );
 }
