@@ -12,7 +12,6 @@ dependencies:
     sdk: flutter
 
   http: ^1.1.2
-  url_strategy: ^0.2.0
 
 dev_dependencies:
   flutter_lints: ^3.0.1

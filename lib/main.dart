@@ -4,10 +4,8 @@ import "dart:developer";
 import "package:dictionary_api/models/dictionary_model.dart";
 import "package:flutter/material.dart";
 import "package:http/http.dart";
-import "package:url_strategy/url_strategy.dart";
 
 void main() {
-  setPathUrlStrategy();
   runApp(const MaterialApp(home: HomeScreen()));
 }
 
