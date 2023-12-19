@@ -4,9 +4,7 @@ class DictionaryModel {
   DictionaryModel.fromJson(Map<String, dynamic> json) {
     list = <ListData>[];
     if (json["list"] != null) {
-      final List<Map<String, dynamic>> tempList =
-          json["list"] as List<Map<String, dynamic>>;
-      for (final Map<String, dynamic> v in tempList) {
+      for (final dynamic v in json["list"] as List<dynamic>) {
         list!.add(ListData.fromJson(v));
       }
     }
@@ -27,7 +25,6 @@ class ListData {
     this.definition,
     this.permalink,
     this.thumbsUp,
-    this.soundUrls,
     this.author,
     this.word,
     this.defid,
@@ -41,7 +38,6 @@ class ListData {
     definition = json["definition"];
     permalink = json["permalink"];
     thumbsUp = json["thumbs_up"];
-    soundUrls = json["sound_urls"];
     author = json["author"];
     word = json["word"];
     defid = json["defid"];
@@ -53,7 +49,6 @@ class ListData {
   String? definition;
   String? permalink;
   int? thumbsUp;
-  List<String>? soundUrls;
   String? author;
   String? word;
   int? defid;
@@ -67,7 +62,6 @@ class ListData {
     data["definition"] = definition;
     data["permalink"] = permalink;
     data["thumbs_up"] = thumbsUp;
-    data["sound_urls"] = soundUrls;
     data["author"] = author;
     data["word"] = word;
     data["defid"] = defid;
