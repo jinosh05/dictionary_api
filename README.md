@@ -1,6 +1,6 @@
 # dictionary_api
 
-A simple working model of dictionary API built in Flutter.
+A simple working model of dictionary API built in Flutter in Easily Understandable manner.
 
 
  
