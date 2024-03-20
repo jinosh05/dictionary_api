@@ -97,7 +97,7 @@ class _HomeScreenState extends State<HomeScreen> {
 }
 
 class _DictionaryItem extends StatelessWidget {
-  const _DictionaryItem({required this.index, required this.data, super.key});
+  const _DictionaryItem({required this.index, required this.data});
   final int index;
   final ListData data;
 
